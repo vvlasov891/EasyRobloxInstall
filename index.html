@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Скачать Roblox бесплатно на ПК и телефон</title>
+    <title>Скачать Roblox бесплатно</title>
     <style>
-        /* Общие стили для страницы */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f6f9;
@@ -42,7 +41,7 @@
             margin-bottom: 30px;
         }
 
-        /* Общие стили для всех кнопок */
+        /* Кнопки */
         .btn {
             display: block;
             text-decoration: none;
@@ -55,7 +54,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        /* Эффект нажатия на кнопку */
         .btn:active {
             transform: scale(0.98);
         }
@@ -64,51 +62,29 @@
             filter: brightness(90%);
         }
 
-        /* Главная кнопка Windows (Синяя) */
+        /* Стили для конкретных платформ */
         .btn-windows {
             background-color: #0074e4;
             color: #ffffff;
             font-size: 20px;
             padding: 20px 20px;
-            margin-bottom: 25px;
         }
 
-        /* Разделитель */
-        .divider {
-            margin: 35px 0;
-            border: 0;
-            border-top: 1px solid #e0e0e0;
-            position: relative;
-        }
-        
-        .divider::after {
-            content: "Для телефонов и планшетов";
-            position: absolute;
-            top: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #ffffff;
-            padding: 0 15px;
-            color: #888;
-            font-size: 14px;
-        }
-
-        /* Кнопка Google Play (Зеленая) */
         .btn-google {
             background-color: #107c41;
             color: #ffffff;
         }
 
-        /* Кнопка App Store (Черная) */
         .btn-apple {
             background-color: #000000;
             color: #ffffff;
-            margin-bottom: 0;
         }
 
-        /* Блок пошаговой инструкции */
+        /* Скрываемая инструкция для Windows */
         .instruction-block {
-            margin-top: 25px;
+            display: none; /* Скрыта по умолчанию */
+            margin-top: 20px;
+            margin-bottom: 25px;
             background-color: #e8f4fd;
             padding: 20px;
             border-radius: 12px;
@@ -116,6 +92,12 @@
             color: #0056b3;
             text-align: left;
             line-height: 1.5;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .instruction-title {
@@ -134,7 +116,6 @@
             margin-bottom: 0;
         }
 
-        /* Стили для скриншотов */
         .step-img {
             display: block;
             max-width: 100%;
@@ -142,7 +123,31 @@
             margin-top: 8px;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-            background-color: #ddd; /* Цвет-заглушка, пока картинка грузится */
+            background-color: #ddd;
+        }
+
+        /* Динамические контейнеры для сортировки */
+        #main-target {
+            margin-bottom: 25px;
+        }
+
+        .divider {
+            margin: 35px 0;
+            border: 0;
+            border-top: 1px solid #e0e0e0;
+            position: relative;
+        }
+        
+        .divider::after {
+            content: "Для других устройств";
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffffff;
+            padding: 0 15px;
+            color: #888;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -150,45 +155,99 @@
 
     <div class="container">
         <h1>Установка Roblox</h1>
-        <p class="subtitle">Нажмите на нужную кнопку ниже, чтобы скачать игру</p>
+        <p class="subtitle" id="site-subtitle">Нажмите на кнопку ниже, чтобы скачать игру</p>
 
-        <!-- Кнопка для Windows -->
-        <a href="https://roblox.com" class="btn btn-windows">
-            💻 Установить приложение для Windows
-        </a>
+        <!-- Сюда JS переместит главную кнопку для текущей ОС -->
+        <div id="main-target"></div>
 
-        <!-- Инструкция в картинках для Windows -->
-        <div class="instruction-block">
+        <!-- Инструкция для Windows (появится после клика) -->
+        <div id="win-instruction" class="instruction-block">
             <span class="instruction-title">Простая инструкция по установке:</span>
-            
             <div class="step">
-                <b>Шаг 1.</b> После нажатия на синюю кнопку выше скачается файл. Нажмите на него два раза левой кнопкой мыши (он находится внизу браузера или в папке «Загрузки»):
+                <b>Шаг 1.</b> Файл скачивается. Нажмите на него два раза левой кнопкой мыши внизу браузера или в папке «Загрузки»:
                 <img src="1.png" alt="Где найти скачанный файл" class="step-img">
             </div>
-
             <div class="step">
-                <b>Шаг 2.</b> Появится окно установки. Ничего не нажимайте, игра установится сама за 1 минуту:
+                <b>Шаг 2.</b> Появится окно. Ничего не нажимайте, игра установится сама за 1 минуту:
                 <img src="2.png" alt="Процесс установки Roblox" class="step-img">
             </div>
-            
             <div class="step">
-                <b>Шаг 3.</b> Готово! На рабочем столе появится значок Roblox. Запускайте его и играйте!
+                <b>Шаг 3.</b> Готово! На рабочем столе появится значок Roblox. Запускайте и играйте!
             </div>
         </div>
 
-        <!-- Разделитель -->
         <div class="divider"></div>
 
-        <!-- Кнопка Google Play -->
-        <a href="https://google.com" class="btn btn-google" target="_blank">
-            🤖 Скачать из Google Play (Android)
-        </a>
+        <!-- Сюда JS переместит остальные второстепенные кнопки -->
+        <div id="secondary-target"></div>
 
-        <!-- Кнопка App Store -->
-        <a href="https://apple.com" class="btn btn-apple" target="_blank">
-            🍏 Скачать из App Store (iPhone / iPad)
-        </a>
+        <!-- Все кнопки изначально лежат в скрытом хранилище, откуда JS их распределит -->
+        <div id="buttons-pool" style="display: none;">
+            <a href="https://roblox.com" class="btn btn-windows" id="btn-win">
+                💻 Установить приложение для Windows
+            </a>
+            
+            <a href="https://google.com" class="btn btn-google" id="btn-android" target="_blank">
+                🤖 Скачать из Google Play (Android)
+            </a>
+            
+            <a href="https://apple.com" class="btn btn-apple" id="btn-ios" target="_blank">
+                🍏 Скачать из App Store (iPhone / iPad)
+            </a>
+        </div>
     </div>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            const btnWin = document.getElementById("btn-win");
+            const btnAndroid = document.getElementById("btn-android");
+            const btnIos = document.getElementById("btn-ios");
+            
+            const mainTarget = document.getElementById("main-target");
+            const secondaryTarget = document.getElementById("secondary-target");
+            const subtitle = document.getElementById("site-subtitle");
+
+            // Определение операционной системы
+            let os = "windows"; // По умолчанию считаем Windows
+
+            if (/android/i.test(userAgent) || /linux/i.test(userAgent)) {
+                os = "android"; // Для Android и Linux
+            } else if (/iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
+                os = "ios"; // Для iOS / iPadOS
+            }
+
+            // Распределение кнопок в зависимости от ОС
+            if (os === "android") {
+                mainTarget.appendChild(btnAndroid);
+                secondaryTarget.appendChild(btnWin);
+                secondaryTarget.appendChild(btnIos);
+                subtitle.innerText = "Мы подобрали версию для вашего Android / Linux устройства";
+            } else if (os === "ios") {
+                mainTarget.appendChild(btnIos);
+                secondaryTarget.appendChild(btnWin);
+                secondaryTarget.appendChild(btnAndroid);
+                subtitle.innerText = "Мы подобрали версию для вашего Apple устройства";
+            } else {
+                // Windows (и всё остальное)
+                mainTarget.appendChild(btnWin);
+                secondaryTarget.appendChild(btnAndroid);
+                secondaryTarget.appendChild(btnIos);
+                subtitle.innerText = "Мы подобрали версию для вашего компьютера на Windows";
+            }
+
+            // Скрипт открытия инструкции для Windows по клику
+            btnWin.addEventListener("click", function() {
+                const instruction = document.getElementById("win-instruction");
+                instruction.style.display = "block";
+                
+                // Плавно прокручиваем к инструкции, чтобы пользователь её заметил
+                setTimeout(() => {
+                    instruction.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            });
+        });
+    </script>
 </body>
 </html>
