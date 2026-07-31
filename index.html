@@ -41,7 +41,7 @@
             margin-bottom: 30px;
         }
 
-        /* Кнопки */
+        /* Базовые стили для мобильных кнопок (Google / Apple) */
         .btn {
             display: block;
             text-decoration: none;
@@ -62,14 +62,6 @@
             filter: brightness(90%);
         }
 
-        /* Стили для конкретных платформ */
-        .btn-windows {
-            background-color: #0074e4;
-            color: #ffffff;
-            font-size: 20px;
-            padding: 20px 20px;
-        }
-
         .btn-google {
             background-color: #107c41;
             color: #ffffff;
@@ -80,9 +72,47 @@
             color: #ffffff;
         }
 
+        /* Стили для оригинальной кнопки Windows, чтобы она была синей и красивой */
+        .btn-roblox-win {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #0074e4; /* Синий цвет */
+            color: #ffffff !important;
+            font-weight: bold;
+            font-size: 20px;
+            padding: 20px 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 74, 228, 0.3);
+            transition: transform 0.1s ease, filter 0.1s ease;
+            cursor: pointer;
+        }
+
+        .btn-roblox-win:hover {
+            filter: brightness(90%);
+        }
+
+        .btn-roblox-win:active {
+            transform: scale(0.98);
+        }
+
+        /* Иконка Microsoft внутри оригинальной кнопки */
+        .icon-filled-microsoft {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://w3.org" viewBox="0 0 23 23"><path fill="%23fff" d="M0 0h11v11H0zM12 0h11v11H12zM0 12h11v11H0zM12 12h11v11H12z"/></svg>');
+            background-size: contain;
+            background-repeat: no-repeat;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
         /* Скрываемая инструкция для Windows */
         .instruction-block {
-            display: none; /* Скрыта по умолчанию */
+            display: none;
             margin-top: 20px;
             margin-bottom: 25px;
             background-color: #e8f4fd;
@@ -126,7 +156,7 @@
             background-color: #ddd;
         }
 
-        /* Динамические контейнеры для сортировки */
+        /* Динамические контейнеры */
         #main-target {
             margin-bottom: 25px;
         }
@@ -183,14 +213,16 @@
 
         <!-- Все кнопки изначально лежат в скрытом хранилище, откуда JS их распределит -->
         <div id="buttons-pool" style="display: none;">
-            <a href="https://roblox.com" class="btn btn-windows" id="btn-win">
-                💻 Установить приложение для Windows
-            </a>
             
+            <!-- Ваша оригинальная кнопка Windows со всеми атрибутами -->
+            <a target="_self" data-testid="download" aria-disabled="false" href="https://www.roblox.com/download/client?os=win&amp;renderingPlatform=nextjs" class="btn-roblox-win foundation-web-button relative clip group/interactable focus-visible:outline-focus disabled:outline-none cursor-pointer relative flex items-center justify-center stroke-none padding-y-none select-none radius-medium text-label-large height-1200 padding-x-medium bg-action-emphasis content-action-emphasis min-width-[240px] medium:min-width-[400px]" style="text-decoration:none" id="btn-win"><div role="presentation" class="absolute inset-[0] transition-colors group-hover/interactable:bg-[var(--color-state-hover)] group-active/interactable:bg-[var(--color-state-press)] group-disabled/interactable:bg-none"></div><span class="flex items-center min-width-0 gap-small"><span class="padding-y-xsmall text-truncate-end text-no-wrap"><span class="flex justify-center items-center gap-small"><span role="presentation" class="grow-0 shrink-0 basis-auto icon icon-filled-microsoft size-[var(--icon-size-xlarge)]"></span><span>Загрузить приложение для Windows</span></span></span></span></a>
+            
+            <!-- Кнопка Android -->
             <a href="https://google.com" class="btn btn-google" id="btn-android" target="_blank">
                 🤖 Скачать из Google Play (Android)
             </a>
             
+            <!-- Кнопка iOS -->
             <a href="https://apple.com" class="btn btn-apple" id="btn-ios" target="_blank">
                 🍏 Скачать из App Store (iPhone / iPad)
             </a>
@@ -209,16 +241,14 @@
             const secondaryTarget = document.getElementById("secondary-target");
             const subtitle = document.getElementById("site-subtitle");
 
-            // Определение операционной системы
-            let os = "windows"; // По умолчанию считаем Windows
+            let os = "windows"; 
 
             if (/android/i.test(userAgent) || /linux/i.test(userAgent)) {
-                os = "android"; // Для Android и Linux
+                os = "android"; 
             } else if (/iPad|iPhone|iPod/.test(userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) {
-                os = "ios"; // Для iOS / iPadOS
+                os = "ios"; 
             }
 
-            // Распределение кнопок в зависимости от ОС
             if (os === "android") {
                 mainTarget.appendChild(btnAndroid);
                 secondaryTarget.appendChild(btnWin);
@@ -230,24 +260,19 @@
                 secondaryTarget.appendChild(btnAndroid);
                 subtitle.innerText = "Мы подобрали версию для вашего Apple устройства";
             } else {
-                // Windows (и всё остальное)
-                mainTarget.appendChild(btnWin);
+mainTarget.appendChild(btnWin);
                 secondaryTarget.appendChild(btnAndroid);
                 secondaryTarget.appendChild(btnIos);
                 subtitle.innerText = "Мы подобрали версию для вашего компьютера на Windows";
             }
 
-            // Скрипт открытия инструкции для Windows по клику
-            btnWin.addEventListener("click", function() {
-                const instruction = document.getElementById("win-instruction");
-                instruction.style.display = "block";
-                
-                // Плавно прокручиваем к инструкции, чтобы пользователь её заметил
-                setTimeout(() => {
-                    instruction.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, 100);
+                                  // Скрипт открытия инструкции для Windows по клику
+                                  btnWin.addEventListener("click", function() {
+                                      const instruction = document.getElementById("win-instruction");
+                                      instruction.style.display = "block";
+
+                                                          setTimeout(() => {
+                                                              instruction.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                                              }, 100);
+                                      });
             });
-        });
-    </script>
-</body>
-</html>
