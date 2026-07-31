@@ -77,7 +77,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #0074e4; /* Синий цвет */
+            background-color: #0074e4; 
             color: #ffffff !important;
             font-weight: bold;
             font-size: 20px;
@@ -88,6 +88,7 @@
             box-shadow: 0 4px 12px rgba(0, 74, 228, 0.3);
             transition: transform 0.1s ease, filter 0.1s ease;
             cursor: pointer;
+            position: relative;
         }
 
         .btn-roblox-win:hover {
@@ -98,7 +99,7 @@
             transform: scale(0.98);
         }
 
-        /* Иконка Microsoft внутри оригинальной кнопки */
+        /* Иконка Microsoft внутри кнопки */
         .icon-filled-microsoft {
             display: inline-block;
             width: 20px;
@@ -187,7 +188,7 @@
         <h1>Установка Roblox</h1>
         <p class="subtitle" id="site-subtitle">Нажмите на кнопку ниже, чтобы скачать игру</p>
 
-        <!-- Сюда JS переместит главную кнопку для текущей ОС -->
+        <!-- Блок для главной кнопки -->
         <div id="main-target"></div>
 
         <!-- Инструкция для Windows (появится после клика) -->
@@ -208,26 +209,22 @@
 
         <div class="divider"></div>
 
-        <!-- Сюда JS переместит остальные второстепенные кнопки -->
-        <div id="secondary-target"></div>
-
-        <!-- Все кнопки изначально лежат в скрытом хранилище, откуда JS их распределит -->
-        <div id="buttons-pool" style="display: none;">
+        <!-- Блок для остальных кнопок -->
+        <div id="secondary-target">
+            <!-- Кнопки теперь изначально находятся здесь. Если JS сработает — он их переставит местами. Если нет — они просто будут показываться списком -->
             
-            <!-- Ваша оригинальная кнопка Windows со всеми атрибутами -->
-            <!-- Исправленная кнопка Windows для скачивания с внешних сайтов -->
-<a target="_blank" download data-testid="download" aria-disabled="false" href="https://roblox.com" class="btn-roblox-win foundation-web-button relative clip group/interactable focus-visible:outline-focus disabled:outline-none cursor-pointer relative flex items-center justify-center stroke-none padding-y-none select-none radius-medium text-label-large height-1200 padding-x-medium bg-action-emphasis content-action-emphasis min-width-[240px] medium:min-width-[400px]" style="text-decoration:none" id="btn-win">
-    <div role="presentation" class="absolute inset- transition-colors group-hover/interactable:bg-[var(--color-state-hover)] group-active/interactable:bg-[var(--color-state-press)] group-disabled/interactable:bg-none"></div>
-    <span class="flex items-center min-width-0 gap-small">
-        <span class="padding-y-xsmall text-truncate-end text-no-wrap">
-            <span class="flex justify-center items-center gap-small">
-                <span role="presentation" class="grow-0 shrink-0 basis-auto icon icon-filled-microsoft size-[var(--icon-size-xlarge)]"></span>
-                <span>Загрузить приложение для Windows</span>
-            </span>
-        </span>
-    </span>
-</a>
-
+            <!-- Полностью исправленная кнопка Windows -->
+            <a target="_blank" download data-testid="download" aria-disabled="false" href="https://roblox.com" class="btn-roblox-win foundation-web-button relative clip group/interactable focus-visible:outline-focus disabled:outline-none cursor-pointer relative flex items-center justify-center stroke-none padding-y-none select-none radius-medium text-label-large height-1200 padding-x-medium bg-action-emphasis content-action-emphasis min-width-[240px] medium:min-width-[400px]" style="text-decoration:none" id="btn-win">
+                <div role="presentation" class="absolute inset-[0] transition-colors group-hover/interactable:bg-[var(--color-state-hover)] group-active/interactable:bg-[var(--color-state-press)] group-disabled/interactable:bg-none"></div>
+                <span class="flex items-center min-width-0 gap-small">
+                    <span class="padding-y-xsmall text-truncate-end text-no-wrap">
+                        <span class="flex justify-center items-center gap-small">
+                            <span role="presentation" class="grow-0 shrink-0 basis-auto icon icon-filled-microsoft size-[var(--icon-size-xlarge)]"></span>
+                            <span>Загрузить приложение для Windows</span>
+                        </span>
+                    </span>
+                </span>
+            </a>
             
             <!-- Кнопка Android -->
             <a href="https://google.com" class="btn btn-google" id="btn-android" target="_blank">
@@ -261,30 +258,34 @@
                 os = "ios"; 
             }
 
+            // Очищаем контейнеры перед распределением кнопок скриптом
+            mainTarget.innerHTML = "";
+            secondaryTarget.innerHTML = "";
+
             if (os === "android") {
                 mainTarget.appendChild(btnAndroid);
                 secondaryTarget.appendChild(btnWin);
                 secondaryTarget.appendChild(btnIos);
                 subtitle.innerText = "Мы подобрали версию для вашего Android / Linux устройства";
-            } else if (os === "ios") {
-                mainTarget.appendChild(btnIos);
-                secondaryTarget.appendChild(btnWin);
-                secondaryTarget.appendChild(btnAndroid);
-                subtitle.innerText = "Мы подобрали версию для вашего Apple устройства";
-            } else {
-mainTarget.appendChild(btnWin);
-                secondaryTarget.appendChild(btnAndroid);
-                secondaryTarget.appendChild(btnIos);
-                subtitle.innerText = "Мы подобрали версию для вашего компьютера на Windows";
-            }
+} else if (os === "ios") {
+    mainTarget.appendChild(btnIos);
+    secondaryTarget.appendChild(btnWin);
+    secondaryTarget.appendChild(btnAndroid);
+    subtitle.innerText = "Мы подобрали версию для вашего Apple устройства";
+} else {
+    mainTarget.appendChild(btnWin);
+    secondaryTarget.appendChild(btnAndroid);
+    secondaryTarget.appendChild(btnIos);
+    subtitle.innerText = "Мы подобрали версию для вашего компьютера на Windows";
+}
 
-                                  // Скрипт открытия инструкции для Windows по клику
-                                  btnWin.addEventListener("click", function() {
-                                      const instruction = document.getElementById("win-instruction");
-                                      instruction.style.display = "block";
-
-                                                          setTimeout(() => {
-                                                              instruction.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                                                              }, 100);
-                                      });
-            });
+// Скрипт открытия инструкции для Windows по клику
+btnWin.addEventListener("click", function() {
+    const instruction = document.getElementById("win-instruction");
+    instruction.style.display = "block";
+    
+    setTimeout(() => {
+        instruction.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+});
+});
