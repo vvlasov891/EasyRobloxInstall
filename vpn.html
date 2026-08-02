@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPN Подписка — Happ</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0f1d, #14112e);
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .vpn-card {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 50px 35px;
+            border-radius: 28px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+            max-width: 480px;
+            width: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .vpn-card:hover {
+            transform: translateY(-2px);
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            font-weight: 800;
+            line-height: 1.35;
+            margin-bottom: 35px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-connect {
+            display: inline-block;
+            text-decoration: none;
+            background: linear-gradient(135deg, #4f46e5, #6366f1);
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 16px 48px;
+            border-radius: 50px;
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.5px;
+        }
+
+        .btn-connect:hover {
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.5);
+            background: linear-gradient(135deg, #4338ca, #4f46e5);
+            padding: 16px 54px;
+        }
+
+        .btn-connect:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="vpn-card">
+        <h1>VPN Подписка на Happ 3 ДНЯ БЕСПЛАТНО!</h1>
+        <a href="https://webapp.sosa.ink/?ref=630d95af-d082-4d8d-a594-5e7d311cbaba" class="btn-connect">Подключить</a>
+    </div>
+
+</body>
+</html>
